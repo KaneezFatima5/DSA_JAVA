@@ -25,7 +25,7 @@ public class IntersectionOfLinkedList {
             }
             headB=headB.next;
         }
-        return 0;
+        return headB;
 
     }
 }
