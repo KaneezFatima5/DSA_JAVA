@@ -8,7 +8,7 @@ public class EscapeTheMatrix {
         int j=0;
         int l=0;
         int n=0;
-        for(m=0; i<arr.length; i++){
+        for(int i=0; i<arr.length; i++){
             for(j=m; j<arr[i].length-m; j++){
                 spiral[z]=arr[m][j];
                 z++;
@@ -27,5 +27,6 @@ public class EscapeTheMatrix {
                 z++;
             }
         }
+        return spiral;
     }
 }
