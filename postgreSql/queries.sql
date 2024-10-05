@@ -1,3 +1,4 @@
+-- Leetcode problem #1934. Confirmation Rate
 with actions as (
     select user_id, count(action) as actionCount from Confirmations group by action, user_id having action='confirmed'
 ), confirms as (
