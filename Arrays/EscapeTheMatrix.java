@@ -8,12 +8,12 @@ public class EscapeTheMatrix {
         int j=0;
         int l=0;
         int n=0;
-        for(int i=0; i<arr.length; i++){
-            for(j=m; j<arr[i].length-m; j++){
+        for(m=0; m<arr.length; m++){
+            for(j=m; j<arr[m].length-m; j++){
                 spiral[z]=arr[m][j];
                 z++;
             }
-            for(l=i+1; l<arr.length-m; l++){
+            for(l=m+1; l<arr.length-m; l++){
                 spiral[z]=arr[j][l];
                 z++;
             }
