@@ -8,3 +8,10 @@ select s.user_id, COALESCE(ROUND((actionCount::NUMERIC/count(c.user_id)), 2), 0)
 
 -- Leetcode problem #1193. Monthly Transaction I
 select to_char(trans_date, 'YYYY-MM') as month, country, count(state) as trans_count, count(case when state='approved' then 1 else null end) as approved_count, sum(amount) as trans_total_amount, sum(case when state='approved' then amount else 0 end) as approved_total_amount from Transactions group by month, country order by country
+
+
+--leetcode problem #570 Manager with at least five direct reports
+with employee as (
+    select e.id, e.name, e.department, e.managerId, c.name as employee_name, c.id as emp_id from Employee e join Employee c where e.managerId=c.id
+)
+select employee_name as name from employee group by emp_id having count(name)>=5
