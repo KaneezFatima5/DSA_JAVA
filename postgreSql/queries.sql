@@ -11,7 +11,4 @@ select to_char(trans_date, 'YYYY-MM') as month, country, count(state) as trans_c
 
 
 --leetcode problem #570 Manager with at least five direct reports
-with employee as (
-    select e.id, e.name, e.department, e.managerId, c.name as employee_name, c.id as emp_id from Employee e join Employee c where e.managerId=c.id
-)
-select employee_name as name from employee group by emp_id having count(name)>=5
+select e.name from Employee e join Employee c on e.id=c.managerId group by e.id having count(e.id)>4
