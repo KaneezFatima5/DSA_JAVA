@@ -14,4 +14,4 @@ select to_char(trans_date, 'YYYY-MM') as month, country, count(state) as trans_c
 with employee as (
     select e.id, e.name, e.department, e.managerId, c.name as employee_name, c.id as emp_id from Employee e join Employee c where e.managerId=c.id
 )
-select employee_name as name from employee group by emp_id having count(name)>=5
+select employee_name as name from employee group by emp_id having 
