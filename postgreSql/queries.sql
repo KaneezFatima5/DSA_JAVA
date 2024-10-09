@@ -12,3 +12,6 @@ select to_char(trans_date, 'YYYY-MM') as month, country, count(state) as trans_c
 
 --leetcode problem #570 Manager with at least five direct reports
 select e.name from Employee e join Employee c on e.id=c.managerId group by e.id having count(e.id)>4
+
+--leetcode problem #1070 Product Sales Analysis III
+select s.product_id, year as first_year, quantity, price from Sales s where year=(select min(year) from Sales p group by product_id having p.product_id=s.product_id)
