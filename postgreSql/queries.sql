@@ -29,3 +29,8 @@ UNION
 select 'Average Salary' as category, count(account_id) as accounts_count from Accounts where income>=20000 and income<=50000
 UNION
 select 'High Salary' as category, count(account_id) as accounts_count from Accounts where income>50000
+
+
+-- Leetcode problem #1280 Students and Examinations
+select s.student_id, student_name, sb.subject_name, count(e.subject_name) as attended_exams from Students s cross join Subjects sb
+left join Examinations e on e.student_id=s.student_id and sb.subject_name=e.subject_name group by sb.subject_name, s.student_id, s.student_id, student_name order by s.student_id
