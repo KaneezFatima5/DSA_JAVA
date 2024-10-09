@@ -15,3 +15,10 @@ select e.name from Employee e join Employee c on e.id=c.managerId group by e.id 
 
 --leetcode problem #1070 Product Sales Analysis III
 select s.product_id, year as first_year, quantity, price from Sales s where year=(select min(year) from Sales p group by product_id having p.product_id=s.product_id)
+
+
+-- leetcode problem #1204 Last Person To Fit In The Bus
+with person as (
+    select person_id, person_name, weight, sum(weight) over (order by turn) as cum_weight, turn from Queue order by turn
+)
+select person_name from person where cum_weight<=1000 order by turn desc limit 1
