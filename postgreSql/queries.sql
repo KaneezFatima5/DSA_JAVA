@@ -51,3 +51,9 @@ UNION ALL
 
 -- Leetcode problem #595 Big Countries --EASY
 select name, population, area from World where area>=3000000 or population>=25000000
+
+-- Leetcode problem #550 Game Play Analysis IV --MEDIUM
+select round(count(player_id)::numeric/(select count(distinct(player_id)) from Activity), 2) AS fraction from Activity a where (select count(player_id) from Activity c where a.player_id=c.player_id having a.event_date=min(c.event_date)+1)>0 
+
+-- Leetcode problem #610 Triangle Judgement --EASY
+select x, y, z, case when (x+y>z and y+z>x and x+z>y) then 'Yes' else 'No' end as triangle from Triangle 
