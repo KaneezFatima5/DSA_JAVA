@@ -60,6 +60,16 @@ public class GraphImpl{
             }
         }
     }
+    public static void dfs(ArrayList<Edge> graph[], int V, int curr, Boolean[] visisted){
+        if(visisted[curr]){
+            return;
+        }
+        System.out.println(graph[curr].get(0).src);
+        for(int i=0; i<graph[curr].size(); i++){
+            visisted[curr]=true;
+            dfs(graph, V, graph[curr].get(i).dest, visisted);
+        }
+    }
     public static void main(String[] args) {
         int numOfEdges=7;
         ArrayList<Edge> graph[]=new ArrayList[7];
@@ -70,7 +80,11 @@ public class GraphImpl{
         //     }
         // }
         // bfs(graph, numOfEdges);
-        
+        Boolean[] visited= new Boolean[numOfEdges];
+        for(int i=0; i<visited.length; i++){
+            visited[i]=false;
+        }
+        dfs(graph, numOfEdges, 0, visited);
 
     }
     
