@@ -57,3 +57,9 @@ select round(count(player_id)::numeric/(select count(distinct(player_id)) from A
 
 -- Leetcode problem #610 Triangle Judgement --EASY
 select x, y, z, case when (x+y>z and y+z>x and x+z>y) then 'Yes' else 'No' end as triangle from Triangle 
+
+-- Leetcode problem #1164 Product Price at a Given Date --MEDIUM
+select product_id, case when min(change_date)>'2019-08-16' then 10 else (select new_price from Products s where p.product_id=s.product_id and change_date <='2019-08-16' order by change_date desc limit 1) end as price from Products p group by product_id order by product_id
+
+-- # Leetcode problem #1731 The Number of Employees Which Repot to Each Employee --EASY
+select y.employee_id, y.name, count(y.employee_id) as reports_count, round(sum(e.age)/count(y.employee_id)) as average_age from Employees e join Employees y on e.reports_to=y.employee_id group by y.employee_id, y.name order by y.employee_id
