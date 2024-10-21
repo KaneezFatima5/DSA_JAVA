@@ -3,6 +3,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import javax.swing.plaf.synth.SynthStyle;
+
 public class GraphImpl{
     static class Edge{
         int src;
@@ -70,10 +72,31 @@ public class GraphImpl{
             dfs(graph, V, graph[curr].get(i).dest, visisted);
         }
     }
+    //All Paths From Source To Target
+    public static void allPaths(ArrayList<Edge> graph[], int V, int curr, Boolean[] visited, int dest, String path){
+        if(curr==dest){
+            path=path+graph[curr].get(0).src;
+            System.out.println(path);
+            return;
+        }
+        if(!visited[curr]){
+            path=path+graph[curr].get(0).src;
+            visited[curr]=true;
+            for(int i=0; i<graph[curr].size(); i++){
+                allPaths(graph, V, graph[curr].get(i).dest, visited, dest, path);
+            }
+            visited[curr]=false;
+        }
+    }
     public static void main(String[] args) {
         int numOfEdges=7;
         ArrayList<Edge> graph[]=new ArrayList[7];
-        createGraph(graph);
+        createGraph(graph); 
+        //     1 - 3 
+        //   /       \
+        // 0       |  5 - 6
+        //   \       /
+        //     2 - 4 
         // for(int i=0; i<graph.length; i++){
         //     for(int j=0; j<graph[i].size(); j++){
         //         System.out.println(graph[i].get(j).src);
@@ -84,7 +107,8 @@ public class GraphImpl{
         for(int i=0; i<visited.length; i++){
             visited[i]=false;
         }
-        dfs(graph, numOfEdges, 0, visited);
+        // dfs(graph, numOfEdges, 0, visited);
+        allPaths(graph, numOfEdges, 0, visited, 5, "");
 
     }
     
