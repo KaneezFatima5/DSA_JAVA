@@ -18,26 +18,18 @@ public class GraphImpl{
         }
         graph[0].add(new Edge(0, 1));
         graph[0].add(new Edge(0, 2));
+        graph[0].add(new Edge(0, 3));
         
         graph[1].add(new Edge(1,0));
-        graph[1].add(new Edge(1,3));
+        graph[1].add(new Edge(1,2));
 
         graph[2].add(new Edge(2,0));
-        graph[2].add(new Edge(2,4));
+        graph[2].add(new Edge(2,1));
 
-        graph[3].add(new Edge(3,1));
+        graph[3].add(new Edge(3,0));
         graph[3].add(new Edge(3,4));
-        graph[3].add(new Edge(3,5));
 
-        graph[4].add(new Edge(4,2));
         graph[4].add(new Edge(4,3));
-        graph[4].add(new Edge(4,5));
-
-        graph[5].add(new Edge(5,3));
-        graph[5].add(new Edge(5,4));
-        graph[5].add(new Edge(5,6));
-
-        graph[6].add(new Edge(6,5));
 
     }
     public static void bfs(ArrayList<Edge> graph[], int V){
@@ -85,10 +77,28 @@ public class GraphImpl{
             visited[curr]=false;
         }
     }
+    //Cycle Detection in un-directed graph
+    public static boolean isCyclic(ArrayList<Edge> graph[]){
+        boolean[] visisted=new boolean[graph.length];
+        int start=graph[0].get(0).src;
+        return detectCycle(graph, start, visisted, -1);
+    }
+    public static boolean detectCycle(ArrayList<Edge> graph[], int curr, boolean[] visited, int parent){
+        visited[curr]=true;
+        for(int i=0; i<graph[curr].size(); i++){
+            if(visited[graph[curr].get(i).dest] && graph[curr].get(i).dest!=parent){
+                return true;
+            }else if(!visited[graph[curr].get(i).dest]){
+                return detectCycle(graph, graph[curr].get(i).dest, visited, curr);
+            }
+        }
+        return false;
+    }
     public static void main(String[] args) {
         int numOfEdges=7;
         ArrayList<Edge> graph[]=new ArrayList[7];
         createGraph(graph); 
+        // {[{0, 1}, {0, 2}, {0, 3}],[ {1, 0}, {1, 2} ], [ {2, 0}, {2, 1}], [{3, 0}, {3, 4}], [{4, 3}]}
         //     1 - 3 
         //   /       \
         // 0       |  5 - 6
@@ -100,12 +110,13 @@ public class GraphImpl{
         //     }
         // }
         // bfs(graph, numOfEdges);
-        Boolean[] visited= new Boolean[numOfEdges];
-        for(int i=0; i<visited.length; i++){
-            visited[i]=false;
-        }
-        // dfs(graph, numOfEdges, 0, visited);
-        allPaths(graph, numOfEdges, 0, visited, 5, "");
+        // Boolean[] visited= new Boolean[numOfEdges];
+        // for(int i=0; i<visited.length; i++){
+        //     visited[i]=false;
+        // }
+        // // dfs(graph, numOfEdges, 0, visited);
+        // allPaths(graph, numOfEdges, 0, visited, 5, "");
+        System.out.println(isCyclic(graph));
 
     }
     
