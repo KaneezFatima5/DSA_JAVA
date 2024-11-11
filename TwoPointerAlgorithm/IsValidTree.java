@@ -3,7 +3,7 @@ package TwoPointerAlgorithm;
 import javax.swing.tree.TreeNode;
 
 public class IsValidTree {
-    public class TreeNode {
+    public static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
@@ -15,37 +15,32 @@ public class IsValidTree {
             this.right = right;
         }
     }
-    public boolean isValidBST(TreeNode root) {
+    public static boolean isValidBST(TreeNode root) {
+        System.out.println(Long.MAX_VALUE);
 
-        return (validateBST(root.val, root.val, root.left));
+        return (validateBST(Long.MIN_VALUE, Long.MAX_VALUE, root));
     }
-    public static boolean validateBST(int max, int min, TreeNode root){
+    public static boolean validateBST(Long min, Long max, TreeNode root){
         boolean left=true;
         boolean right=true;
-        if(root.left!=null ){
-            if(root.left.val>=max || root.left.val<=min){
+        int rootValue;
+        if(root!=null){
+            rootValue=root.val;
+            if(root.val<=min || root.val>=max){
                 return false;
-            }else{
-                int newMin=min;
-                int newMax=max;
-                if(root.left.val<min){
-                    newMin=root.left.val;
-                }
-                left=validateBST(newMax, newMin, root.left);
+            }
+            if(root.left!=null){
+                left=validateBST(min, Math.min(max, rootValue), root.left);
+            }
+            if(root.right!=null){
+                right=validateBST(Math.max(min, rootValue), max, root.right);
             }
         }
-        if(root.right!=null ){
-            if(root.right.val<=min || root.right.val>=max){
-                return false;
-            }else{
-                int newMin=min;
-                int newMax=max;
-                if(root.right.val>max){
-                newMax=root.right.val;
-            }
-                right=validateBST(newMax, newMin, root.right);
-            }
-        }
-        return (left && right);
+        return left && right;
+    }
+    public static void main(String args[]){
+        TreeNode node=new TreeNode(2147483647);
+        boolean res=isValidBST(node);
+        System.out.println(res);
     }
 }
