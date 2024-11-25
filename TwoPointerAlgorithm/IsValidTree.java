@@ -1,7 +1,5 @@
 package TwoPointerAlgorithm;
 
-import javax.swing.tree.TreeNode;
-
 public class IsValidTree {
     public static class TreeNode {
         int val;
